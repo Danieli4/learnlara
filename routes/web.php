@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'ddddd';
+        //view('welcome');
 });
+
+Route::get('/my_page', 'App\Http\Controllers\MyPlaceController@index');
