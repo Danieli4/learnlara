@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('posts', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
             $table->index('category_id', 'post_category_idx');
-            $table->foreign('category_id', 'post_category_fk')->on('categories')->references('id');
+            $table->foreign('category_id', 'post_category_fk')->on('categories')->references('id')->onDelete('cascade');
 
         });
     }
@@ -29,9 +29,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->index('category_id', 'post_category_idx');
-            $table->foreign('category_id', 'post_category_fk')->on('categories')->references('id');
+            $table->dropForeign('post_category_fk');
+            $table->dropIndex('post_category_idx');
+            $table->dropColumn('category_id');
 
         });
     }
