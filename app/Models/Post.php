@@ -36,7 +36,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $table = 'posts';
-    protected $fillable = ['title', 'content', 'image', 'likes', 'is_published'];
+    protected $fillable = ['title', 'content', 'image', 'likes', 'is_published', 'category_id'];
 
     public function category ()
     {
