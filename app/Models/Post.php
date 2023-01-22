@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +35,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Filterable;
 
     protected $table = 'posts';
     protected $fillable = ['title', 'content', 'image', 'likes', 'is_published', 'category_id', 'tags'];
