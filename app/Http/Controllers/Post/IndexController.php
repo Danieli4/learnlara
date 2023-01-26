@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\Post\FilterRequest;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 
 class IndexController extends BaseController
@@ -13,9 +14,11 @@ class IndexController extends BaseController
     {
         //$this->authorize('view', auth()->user());
         $data = $request->validated();
+        $page = $data['page'] ?? 1;
+        $perPage = $data['per_page'] ?? 10;
 
         $filter = app()->make(PostFilter::class, ['queryParams'=> array_filter($data)]);
-        $posts = Post::filter($filter)->paginate(10);
+        $posts = Post::filter($filter)->paginate($perPage, ['*'], 'page', $page);
         //dd($posts);
         //Так на практике никто не делает далее будет шаблон
 //        $data = $request->validated();
@@ -42,6 +45,7 @@ class IndexController extends BaseController
 //            ->where('category_id', $data['category_id'])
 //            ->get();
         //$posts = Post::paginate(10);
+        //return PostResource::collection($posts);
         return view('post.index', compact('posts'));
     }
 
